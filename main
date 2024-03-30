@@ -1,0 +1,47 @@
+import random
+
+field = [
+  ["-"] * 5,
+  ["-"] * 5,
+  ["-"] * 5,
+  ["-"] * 5,
+  ["-"] * 5,
+]
+
+adj = 0
+unrevealed = 21
+
+positions = [(x, y) for x in range(5) for y in range(5)]
+for _ in range(5):
+   x, y = random.choice(positions) 
+   field[x][y] = 'b' 
+   positions.remove((x, y))  
+
+print('\n'.join([''.join(['-' if cell == 'b' else cell for cell in row]) for row in field]))
+
+while (unrevealed != 0):
+
+ guess = input("Selecione primeiro a linha e depois a coluna com espaços e sem vírgula (ex: 1 2): ")
+ x, y = map(int, guess.split())
+ x -= 1
+ y -= 1
+ if (x < 0 or x >= 5) or (y < 0 or y >= 5) or guess.isdigit():
+        print("Digite apenas números entre 1 e 5")
+        continue
+ 
+ if field[x][y] == 'b':
+    print("Você perdeu!")
+    break
+ else:
+    for dx in range(-1, 2):
+        for dy in range(-1, 2):
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < 5 and 0 <= ny < 5 and field[nx][ny] == 'b':
+                adj += 1
+    unrevealed -= 1
+    field[x][y] = str(adj)
+    adj = 0
+    print('\n'.join([''.join(['-' if cell == 'b' else cell for cell in row]) for row in field]))
+
+if (unrevealed == 0):
+  print("Você venceu!")
