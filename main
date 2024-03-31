@@ -9,7 +9,7 @@ field = [
 ]
 
 adj = 0
-unrevealed = 21
+unrevealed = 20
 
 positions = [(x, y) for x in range(5) for y in range(5)]
 for _ in range(5):
@@ -25,7 +25,7 @@ while (unrevealed != 0):
  x, y = map(int, guess.split())
  x -= 1
  y -= 1
- if (x < 0 or x >= 5) or (y < 0 or y >= 5) or guess.isdigit():
+ if (x < 1 or x > 5) or (y < 1 or y > 5) or guess.isdigit():
         print("Digite apenas números entre 1 e 5")
         continue
  
